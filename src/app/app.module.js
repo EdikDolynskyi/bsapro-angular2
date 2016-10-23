@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { HttpModule, JsonpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
 import { TodoListComponent } from './todo/todo-list/todo-list.component';
@@ -15,7 +16,11 @@ import { ColorDirective } from './shared/color.directive';
 		TodoFormComponent,
 		TodoItemComponent
 	],
-	imports: [ BrowserModule ]
+	imports: [
+		BrowserModule,
+		HttpModule,
+		JsonpModule
+	]
 })
 
 export class AppModule {}

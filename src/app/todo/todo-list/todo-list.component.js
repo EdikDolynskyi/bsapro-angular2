@@ -1,25 +1,24 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { TodoService } from 'app/todo/todo.service';
 
 @Component({
 	selector: 'todo-list',
 	templateUrl: 'app/todo/todo-list/todo-list.component.html',
-	styleUrls: ['app/todo/todo-list/todo-list.component.css'],
-	inputs: ['todos']
+	styleUrls: ['app/todo/todo-list/todo-list.component.css']
+	//providers:  [ TodoService ]
 })
 
-export class TodoListComponent {
-  //@Input() todos;
+export class TodoListComponent implements OnInit{
+  constructor(todoService: TodoService){
+  	this.todoService = todoService;
+  	this.todos = [];
+  }
 
-  constructor(){
+  ngOnInit(){
+    this.todoService.getTodos().then(todos => this.todos = todos);
   }
 
   onTodoDeleted(todo){
-	if (todo) {
-		let index = this.todos.indexOf(todo);
-
-		if (index > -1) {
-			this.todos.splice(index, 1);
-		}
-	}
+	this.todoService.deleteTodo(todo);
   }
 }
