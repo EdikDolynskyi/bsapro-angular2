@@ -1,23 +1,20 @@
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
-import 'rxjs/add/operator/toPromise';
+import { todos } from 'app/shared/todo.data';
 
 let todosUrl = 'app/todo/todos.json';
 
 @Injectable()
 export class TodoService {
-	constructor(http: Http){
-		this.http = http;
-	}
 
 	getTodos(){
-		return this.http.get(todosUrl)
-			.toPromise()
-			.then(res => res.json())
-			.catch(this.handleError)
+		return new Promise(resolve => setTimeout(() => resolve(todos), 1000));
 	}
 
-	addTodo(todo){ 	
+	getTodo(id){
+		return Promise.resolve(todos.find(todo => todo.id === +id)); 
+	}
+
+	addTodo(todo){ 
 		todos.push(todo);
 	}
 
