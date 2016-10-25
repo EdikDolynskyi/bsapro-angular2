@@ -12,30 +12,23 @@ var config = require('./webpack.config.js');
 
 var compiler = webpack(config);
 var middleware = webpackMiddleware(compiler, {
-  publicPath: config.output.publicPath,
-  contentBase: 'src',
-  stats: {
-    colors: true,
-    hash: false,
-    timings: true,
-    chunks: false,
-    chunkModules: false,
-    modules: false
-  }
+  publicPath: '/'
 });
 
 app.use(middleware);
 
+app.use(express.static(__dirname + '/src'));
+
 app.get('/', function response(req, res) {
-	res.sendFile(path.join(__dirname, 'src/index.html'));
+  res.sendFile(path.join(__dirname, 'src/index.html'));
  });
 
 app.get('/todos', function (req, res) {
-	// fs.readFile( __dirname + "/" + "users.json", 'utf8', function (err, data) {
-	// 	console.log( data );
-	// 	res.end( data );
-	// });
-	res.end( 'Hello' );
+ // fs.readFile( __dirname + "/" + "users.json", 'utf8', function (err, data) {
+ //  console.log( data );
+ //  res.end( data );
+ // });
+ res.end( 'Hello' );
 })
 
 app.listen(3000, function () {
